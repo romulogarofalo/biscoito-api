@@ -9,6 +9,9 @@ defmodule BiscoitoWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit]
+    scope "/auth" do
+      post "/identity/callback", AuthenticationController, :login
+    end
 
   end
 
