@@ -6,15 +6,28 @@ defmodule Biscoito.Accounts.User do
     field :hashed_password, :string
     field :permissions, :map
     field :username, :string
-
+    field :password, :string, virtual: true
     timestamps()
   end
+
+  @required_attrs [:username, :password, :permissions]
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :hashed_password, :permissions])
-    |> validate_required([:username, :hashed_password, :permissions])
+    |> cast(attrs, @required_attrs)
+    |> validate_required(@required_attrs)
     |> unique_constraint(:username)
+    |> put_hashed_password()
   end
+
+  defp put_hashed_password(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        put_change(changeset, :hashed_password, Comeonin.Bcrypt.hashpwsalt(password))
+      _ ->
+        changeset
+    end
+  end
+
 end
