@@ -101,4 +101,20 @@ defmodule Biscoito.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+
+  def get_user_by_username_and_password(nil, _password), do: {:error, :invalid}
+  def get_user_by_username_and_password(_username, nil), do: {:error, :invalid}
+
+  def get_user_by_username_and_password(username, password) do
+    with  %User{} = user <- Repo.get_by(User, username: String.downcase(username)),
+          true <- Comeonin.Bcrypt.checkpw(password, user.hashed_password) do
+      {:ok, user}
+    else
+      _ ->
+        # Help to mitigate timing attacks
+        Comeonin.Bcrypt.dummy_checkpw
+        {:error, :unauthorised}
+    end
+  end
 end
