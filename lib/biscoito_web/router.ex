@@ -7,6 +7,9 @@ defmodule BiscoitoWeb.Router do
 
   scope "/api", BiscoitoWeb do
     pipe_through :api
+
+    resources "/users", UserController, except: [:new, :edit]
+
   end
 
   # Enables LiveDashboard only for development
