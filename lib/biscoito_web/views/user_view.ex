@@ -13,7 +13,6 @@ defmodule BiscoitoWeb.UserView do
   def render("user.json", %{user: user}) do
     %{id: user.id,
       username: user.username,
-      hashed_password: user.hashed_password,
       permissions: user.permissions}
   end
 end
