@@ -29,3 +29,23 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :ueberauth, Ueberauth,
+base_path: "/api/auth",
+providers: [
+  identity: {Ueberauth.Strategy.Identity, [
+    callback_methods: ["POST"],
+    nickname_field: :username,
+    param_nesting: "user",
+    uid_field: :username
+  ]}
+]
+
+config :biscoito, Biscoito.Guardian,
+  issuer: "Biscoito",
+  secret_key: "yvHZbBjadA+Z+4Yju0MTgKw1a0jM9K7I/e0EXS5e0KGpfIcwB74/MMuDJGxzUpgb",
+
+  # We will get round to using these permissions at the end
+  permissions: %{
+    default: [:read_users, :write_users]
+  }
