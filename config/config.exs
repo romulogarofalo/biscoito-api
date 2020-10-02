@@ -49,3 +49,7 @@ config :biscoito, Biscoito.Guardian,
   permissions: %{
     default: [:read_users, :write_users]
   }
+
+config :biscoito, BiscoitoWeb.Plug.AuthAccessPipeline,
+  module: Biscoito.Guardian,
+  error_handler: BiscoitoWeb.Plug.AuthErrorHandler
