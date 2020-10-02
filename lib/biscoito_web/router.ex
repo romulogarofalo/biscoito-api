@@ -18,6 +18,7 @@ defmodule BiscoitoWeb.Router do
   scope "/api", BiscoitoWeb do
     pipe_through [:api]
 
+    post "/lists", ListsController, :create
     post "/signup", UserController, :create
 
     scope "/auth" do
