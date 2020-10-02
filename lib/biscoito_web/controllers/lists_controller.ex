@@ -3,7 +3,8 @@ defmodule BiscoitoWeb.ListsController do
 
   action_fallback BiscoitoWeb.FallbackController
 
-  def create(conn, attr_list) do
+  def create(%{req_headers: headers} = conn, attr_list) do
+    IO.inspect(Enum.at(headers, 1))
     with {:ok, list} <- Biscoito.create_list(attr_list) do
       conn
       |> put_status(:created)
