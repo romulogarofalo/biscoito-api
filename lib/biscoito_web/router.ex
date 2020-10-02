@@ -5,10 +5,19 @@ defmodule BiscoitoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticated do
+    plug BiscoitoWeb.Plug.AuthAccessPipeline
+  end
+
   scope "/api", BiscoitoWeb do
-    pipe_through :api
+    pipe_through [:api, :authenticated]
 
     resources "/users", UserController, except: [:create, :edit]
+  end
+
+  scope "/api", BiscoitoWeb do
+    pipe_through [:api]
+
     post "/signup", UserController, :create
 
     scope "/auth" do
