@@ -11,7 +11,6 @@ defmodule BiscoitoWeb.AuthenticationController do
   end
 
   defp handle_user_conn(user, conn) do
-    IO.inspect(user)
     case user do
       {:ok, user} ->
         {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
