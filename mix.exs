@@ -20,7 +20,7 @@ defmodule Biscoito.MixProject do
   def application do
     [
       mod: {Biscoito.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :guardian]
     ]
   end
 
