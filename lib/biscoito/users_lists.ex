@@ -8,8 +8,8 @@ defmodule Biscoito.UsersLists do
   alias Biscoito.Accounts.User
 
   schema "users_lists" do
-    belongs_to :id_user, User
-    belongs_to :id_list, Lists
+    belongs_to :user_id, User
+    belongs_to :list_uuid, Lists
   end
 
   @required_attrs [:id_user, :id_list]

@@ -3,8 +3,8 @@ defmodule Biscoito.Repo.Migrations.UserList do
 
   def change do
     create table(:users_lists, primary_key: false) do
-      add :id_user, references(:users)
-      add :id_list, references(:lists)
+      add :user_id, references(:users)
+      add :list_uuid, references(:lists)
       timestamps()
     end
   end
