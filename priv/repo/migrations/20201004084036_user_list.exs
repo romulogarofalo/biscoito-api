@@ -4,7 +4,7 @@ defmodule Biscoito.Repo.Migrations.UserList do
   def change do
     create table(:users_lists, primary_key: false) do
       add :user_id, references(:users)
-      add :list_uuid, references(:lists)
+      add :list_uuid, references(:lists, type: :uuid)
       timestamps()
     end
   end
